@@ -219,25 +219,25 @@ public class UserAPIController {
         }
     }
 
-//    @PostMapping("/re_user")
-//    public String reTypeAndHeader(UserTable userTable) {
-//        try {
-//            System.out.println(userTable.getHeader());
-//
-//            String strEmail = userTable.getEmail();
-//            List<String> lstEmail = List.of(strEmail.split(","));
-//            for (int i = 0; i < lstEmail.size(); i++) {
-//                Integer result = userRepository.reUser(
-//                        lstEmail.get(i),
-//                        userTable.getType_noti(),
-//                        userTable.getHeader(),
-//                        userTable.getStatus());
-//            }
-//            return "Success";
-//        } catch (Exception err) {
-//            return "Error";
-//        }
-//    }
+    @PostMapping("/re_user")
+    public String reTypeAndHeader(UserTable userTable) {
+        try {
+            System.out.println(userTable.getHeader());
+
+            String strEmail = userTable.getEmail();
+            List<String> lstEmail = List.of(strEmail.split(","));
+            for (int i = 0; i < lstEmail.size(); i++) {
+                Integer result = userRepository.reUser(
+                        lstEmail.get(i),
+                        userTable.getType_noti(),
+                        userTable.getHeader(),
+                        userTable.getStatus());
+            }
+            return "Success";
+        } catch (Exception err) {
+            return "Error";
+        }
+    }
 
 
 }
