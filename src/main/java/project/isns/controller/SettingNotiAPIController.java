@@ -105,23 +105,23 @@ public class SettingNotiAPIController {
                     List<UserTable> lstuserbyname_noti = userRepository.findByHeader(listSettingNoti.get(i).getName_noti());
                     for (int j = 0; j < lstuserbyname_noti.size(); j++) {
                         ///ส่งไปที่ Email///
-//                        smtpMailSenders.send(lstuserbyname_noti.get(j).getEmail().toString(), listSettingNoti.get(i).getHeader(), listSettingNoti.get(i).getBody());
+                        smtpMailSenders.send(lstuserbyname_noti.get(j).getEmail().toString(), listSettingNoti.get(i).getHeader(), listSettingNoti.get(i).getBody());
                         ///ส่งไปที่ line///
-                        if (lstuserbyname_noti.get(j).getLine_uid() != null) {
-                            final LineMessagingClient client = LineMessagingClient
-                                    .builder("vfzFSzKN6OVit3qSsxSpPXXw93J5H/x7NnlHF170FqZV1lVEril/pt+1MBaKoctMi3DbSIFC2yZPNEHZ7MPVz/zIv/CKpAlP8HdyLns7VFLq/LAQlHlAFq4BOP96LKg2j2diKWZMkzlX8xlxArgbuAdB04t89/1O/w1cDnyilFU=")
-                                    .build();
-                            final TextMessage textMessage = new TextMessage(listSettingNoti.get(i).getBody());
-                            final PushMessage pushMessage = new PushMessage(lstuserbyname_noti.get(j).getLine_uid().toString(), textMessage);
-                            final BotApiResponse botApiResponse;
-                            try {
-                                botApiResponse = client.pushMessage(pushMessage).get();
-                                System.out.println(botApiResponse);
-
-                            } catch (InterruptedException | ExecutionException e) {
-                                e.printStackTrace();
-                            }
-                        }
+//                        if (lstuserbyname_noti.get(j).getLine_uid() != null) {
+//                            final LineMessagingClient client = LineMessagingClient
+//                                    .builder("vfzFSzKN6OVit3qSsxSpPXXw93J5H/x7NnlHF170FqZV1lVEril/pt+1MBaKoctMi3DbSIFC2yZPNEHZ7MPVz/zIv/CKpAlP8HdyLns7VFLq/LAQlHlAFq4BOP96LKg2j2diKWZMkzlX8xlxArgbuAdB04t89/1O/w1cDnyilFU=")
+//                                    .build();
+//                            final TextMessage textMessage = new TextMessage(listSettingNoti.get(i).getBody());
+//                            final PushMessage pushMessage = new PushMessage(lstuserbyname_noti.get(j).getLine_uid().toString(), textMessage);
+//                            final BotApiResponse botApiResponse;
+//                            try {
+//                                botApiResponse = client.pushMessage(pushMessage).get();
+//                                System.out.println(botApiResponse);
+//
+//                            } catch (InterruptedException | ExecutionException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
                         settingNotiRepository.updateStatus("sent", listSettingNoti.get(i).getSetting_noti_id());
                     }
                 }else if(ChronoUnit.HOURS.between(currentTime, inputTime) < 0){
