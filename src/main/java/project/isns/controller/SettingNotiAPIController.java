@@ -96,6 +96,7 @@ public class SettingNotiAPIController {
     @Scheduled(fixedDelay = 5000)
     public void settingMessage() throws MessagingException {
         LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("UTC+07:00"));
+        System.out.println(currentTime);
         List<SettingNotiTable> listSettingNoti = settingNotiRepository.listSettingNoti();
         for (int i = 0; i < listSettingNoti.size(); i++) {
             LocalDateTime inputTime = LocalDateTime.parse(listSettingNoti.get(i).getDate()); //แปลงString to date
@@ -107,7 +108,6 @@ public class SettingNotiAPIController {
                         smtpMailSenders.send(lstuserbyname_noti.get(j).getEmail().toString(), listSettingNoti.get(i).getHeader(), listSettingNoti.get(i).getBody());
                         ///ส่งไปที่ line///
                         if (lstuserbyname_noti.get(j).getLine_uid() != null) {
-                            System.out.print("ทดสอบ"+lstuserbyname_noti.get(j).getLine_uid());
                             final LineMessagingClient client = LineMessagingClient
                                     .builder("vfzFSzKN6OVit3qSsxSpPXXw93J5H/x7NnlHF170FqZV1lVEril/pt+1MBaKoctMi3DbSIFC2yZPNEHZ7MPVz/zIv/CKpAlP8HdyLns7VFLq/LAQlHlAFq4BOP96LKg2j2diKWZMkzlX8xlxArgbuAdB04t89/1O/w1cDnyilFU=")
                                     .build();
