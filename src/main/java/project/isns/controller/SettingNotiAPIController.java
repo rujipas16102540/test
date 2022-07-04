@@ -105,7 +105,7 @@ public class SettingNotiAPIController {
                     List<UserTable> lstuserbyname_noti = userRepository.findByHeader(listSettingNoti.get(i).getName_noti());
                     for (int j = 0; j < lstuserbyname_noti.size(); j++) {
                         ///ส่งไปที่ Email///
-                        smtpMailSenders.send(lstuserbyname_noti.get(j).getEmail().toString(), listSettingNoti.get(i).getHeader(), listSettingNoti.get(i).getBody());
+//                        smtpMailSenders.send(lstuserbyname_noti.get(j).getEmail().toString(), listSettingNoti.get(i).getHeader(), listSettingNoti.get(i).getBody());
                         ///ส่งไปที่ line///
                         if (lstuserbyname_noti.get(j).getLine_uid() != null) {
                             final LineMessagingClient client = LineMessagingClient
