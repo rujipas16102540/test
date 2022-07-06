@@ -37,8 +37,6 @@ public class NewsAPIController {
     public Object saveNews(NewsTable news) throws MessagingException {
         APIResponse res = new APIResponse();
         List<String> email = userRepository.findEmailByUserType();
-
-
         try {
             for (int i = 0; i < email.size(); i++) {
                 smtpMailSenders.send(email.get(i), news.getHeader(), news.getBody());
@@ -98,10 +96,10 @@ public class NewsAPIController {
     public Object sendToEmailByNoti(@RequestParam String topic, @RequestParam String header, @RequestParam String body) throws MessagingException {
         APIResponse res = new APIResponse();
         List<String> lstQueueByheader = queueRepository.findEmailByHeader(topic);
+        System.out.print("lstQueueByheader : "+lstQueueByheader);
         try {
             for (int i = 0; i < lstQueueByheader.size(); i++) {
                 smtpMailSenders.send(lstQueueByheader.get(i), header, body);
-                System.out.println("--------" + lstQueueByheader);
             }
             res.setStatus(1);
             res.setMessage("Success");
@@ -109,6 +107,7 @@ public class NewsAPIController {
             res.setStatus(0);
             res.setMessage("ERROR: " + err.toString());
         }
+        System.out.print("res : "+res);
         return res;
     }
 

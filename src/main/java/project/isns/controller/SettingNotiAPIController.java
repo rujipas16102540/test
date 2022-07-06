@@ -96,7 +96,6 @@ public class SettingNotiAPIController {
     @Scheduled(fixedDelay = 5000)
     public void settingMessage() throws MessagingException {
         LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("UTC+07:00"));
-        System.out.println(currentTime);
         List<SettingNotiTable> listSettingNoti = settingNotiRepository.listSettingNoti();
         for (int i = 0; i < listSettingNoti.size(); i++) {
             LocalDateTime inputTime = LocalDateTime.parse(listSettingNoti.get(i).getDate()); //แปลงString to date
@@ -107,21 +106,21 @@ public class SettingNotiAPIController {
                         ///ส่งไปที่ Email///
                         smtpMailSenders.send(lstuserbyname_noti.get(j).getEmail().toString(), listSettingNoti.get(i).getHeader(), listSettingNoti.get(i).getBody());
                         ///ส่งไปที่ line///
-//                        if (lstuserbyname_noti.get(j).getLine_uid() != null) {
-//                            final LineMessagingClient client = LineMessagingClient
-//                                    .builder("vfzFSzKN6OVit3qSsxSpPXXw93J5H/x7NnlHF170FqZV1lVEril/pt+1MBaKoctMi3DbSIFC2yZPNEHZ7MPVz/zIv/CKpAlP8HdyLns7VFLq/LAQlHlAFq4BOP96LKg2j2diKWZMkzlX8xlxArgbuAdB04t89/1O/w1cDnyilFU=")
-//                                    .build();
-//                            final TextMessage textMessage = new TextMessage(listSettingNoti.get(i).getBody());
-//                            final PushMessage pushMessage = new PushMessage(lstuserbyname_noti.get(j).getLine_uid().toString(), textMessage);
-//                            final BotApiResponse botApiResponse;
-//                            try {
-//                                botApiResponse = client.pushMessage(pushMessage).get();
-//                                System.out.println(botApiResponse);
-//
-//                            } catch (InterruptedException | ExecutionException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
+                        if (lstuserbyname_noti.get(j).getLine_uid() != null) {
+                            final LineMessagingClient client = LineMessagingClient
+                                    .builder("vfzFSzKN6OVit3qSsxSpPXXw93J5H/x7NnlHF170FqZV1lVEril/pt+1MBaKoctMi3DbSIFC2yZPNEHZ7MPVz/zIv/CKpAlP8HdyLns7VFLq/LAQlHlAFq4BOP96LKg2j2diKWZMkzlX8xlxArgbuAdB04t89/1O/w1cDnyilFU=")
+                                    .build();
+                            final TextMessage textMessage = new TextMessage(listSettingNoti.get(i).getBody());
+                            final PushMessage pushMessage = new PushMessage(lstuserbyname_noti.get(j).getLine_uid().toString(), textMessage);
+                            final BotApiResponse botApiResponse;
+                            try {
+                                botApiResponse = client.pushMessage(pushMessage).get();
+                                System.out.println(botApiResponse);
+
+                            } catch (InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         settingNotiRepository.updateStatus("sent", listSettingNoti.get(i).getSetting_noti_id());
                     }
                 }else if(ChronoUnit.HOURS.between(currentTime, inputTime) < 0){
