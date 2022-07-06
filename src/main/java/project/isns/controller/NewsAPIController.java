@@ -96,9 +96,12 @@ public class NewsAPIController {
     public Object sendToEmailByNoti(@RequestParam String topic, @RequestParam String header, @RequestParam String body) throws MessagingException {
         APIResponse res = new APIResponse();
         List<String> lstQueueByheader = queueRepository.findEmailByHeader(topic);
-        System.out.print("lstQueueByheader : "+lstQueueByheader);
         try {
             for (int i = 0; i < lstQueueByheader.size(); i++) {
+                System.out.print("lstQueueByheader : "+lstQueueByheader.get(i));
+                System.out.print("header : "+header);
+                System.out.print("body : "+body);
+
                 smtpMailSenders.send(lstQueueByheader.get(i), header, body);
             }
             res.setStatus(1);
