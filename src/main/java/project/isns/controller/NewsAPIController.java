@@ -100,13 +100,10 @@ public class NewsAPIController {
         try {
 
             for (int i = 0; i < lstQueueByheader.size(); i++) {
-                Thread.sleep(5000);
-                System.out.print("lstQueueByheader : "+lstQueueByheader.get(i));
-                System.out.print("header : "+header);
-                Thread.sleep(5000);
-                System.out.print("body : "+body);
-                Thread.sleep(5000);
+
                 smtpMailSenders.send(lstQueueByheader.get(i), header, body);
+                Thread.sleep(5000);
+
             }
             res.setStatus(1);
             res.setMessage("Success");
