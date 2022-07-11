@@ -33,6 +33,27 @@ public class NewsAPIController {
     @Autowired
     private QueueRepository queueRepository;
 
+    @PostMapping("/email")
+    public Object mailll(NewsTable news) throws MessagingException {
+        APIResponse res = new APIResponse();
+//        List<String> email = userRepository.findEmailByUserType();
+        try {
+//            for (int i = 0; i < email.size(); i++) {
+                smtpMailSenders.send("rujipas1534@gmail.com", "Hello mail", "Hello-Mail");
+//            }
+            newsRepository.save(news);
+            res.setStatus(1);
+            res.setMessage("Success");
+            res.setData(news);
+
+
+        } catch (Exception err) {
+            res.setStatus(0);
+            res.setMessage("ERROR: " + err.toString());
+        }
+        return res;
+    }
+
     @PostMapping("/send_to_email")
     public Object saveNews(NewsTable news) throws MessagingException {
         APIResponse res = new APIResponse();
