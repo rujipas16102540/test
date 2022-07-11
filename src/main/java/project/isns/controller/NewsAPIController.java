@@ -40,12 +40,13 @@ public class NewsAPIController {
         try {
 //            for (int i = 0; i < email.size(); i++) {
                 smtpMailSenders.send("rujipas1534@gmail.com", "Hello mail", "Hello-Mail");
+            System.out.print("Success");
+
 //            }
-            newsRepository.save(news);
+//            newsRepository.save(news);
             res.setStatus(1);
             res.setMessage("Success");
             res.setData(news);
-
 
         } catch (Exception err) {
             res.setStatus(0);
