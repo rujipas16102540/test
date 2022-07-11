@@ -33,7 +33,7 @@ public class NewsAPIController {
     @Autowired
     private QueueRepository queueRepository;
 
-    @PostMapping("/email")
+    @GetMapping("/email")
     public Object mailll(NewsTable news) throws MessagingException {
         APIResponse res = new APIResponse();
 //        List<String> email = userRepository.findEmailByUserType();
